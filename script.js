@@ -15,14 +15,18 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(this, void 0, void
     const users = yield reponseUsers.json();
     data = users.map(user => (Object.assign({ posts: posts.filter(post => (post.userId === user.id) && post) }, user)));
     console.log(data);
-    // data = (await reponse.json()) as Array<Partial<Pays>>;
-    // const regions = new Set();
-    // let html = "";
-    // data.forEach(pays => regions.add(pays.region ))
-    // regions.forEach( region => html += `<option>${region}</option>` )
-    // document.querySelector("select").innerHTML = html; 
     render(data);
 }));
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const inputTitre = document.querySelector("input[name='titre']");
+    const inputAuteur = document.querySelector("input[name='auteur']");
+    const listeFiltreUser = data.filter(user => {
+        const posts = user.posts;
+        return user.name.toLowerCase().includes(inputAuteur.value.toLowerCase()) && posts.find(post => post.title.toLowerCase().includes(inputTitre.value.toLowerCase()));
+    });
+    render(listeFiltreUser);
+});
 function render(data) {
     let html = "";
     data.forEach(item => {

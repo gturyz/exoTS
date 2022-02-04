@@ -1,5 +1,5 @@
 
-let data: any;
+let data: any[];
 
 document.addEventListener("DOMContentLoaded", async () => {
     const reponseUsers = await fetch("https://jsonplaceholder.typicode.com/users")
@@ -14,14 +14,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     }))
 
     console.log(data)
-    // data = (await reponse.json()) as Array<Partial<Pays>>;
-    // const regions = new Set();
-    // let html = "";
-    // data.forEach(pays => regions.add(pays.region ))
-    // regions.forEach( region => html += `<option>${region}</option>` )
-    // document.querySelector("select").innerHTML = html; 
 
     render(data)
+})
+
+document.querySelector("form").addEventListener("submit" , (e : Event) => {
+    e.preventDefault()
+    const inputTitre = document.querySelector("input[name='titre']") as HTMLInputElement
+    const inputAuteur = document.querySelector("input[name='auteur']") as HTMLInputElement
+    
+    const listeFiltreUser = data.filter( user => {
+        const posts: any[] = user.posts
+        return user.name.toLowerCase().includes(inputAuteur.value.toLowerCase()) && posts.find(post => post.title.toLowerCase().includes(inputTitre.value.toLowerCase()))
+    })
+    render(listeFiltreUser)
 })
 
 function render(data: any[]) {
