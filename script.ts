@@ -34,7 +34,7 @@ function render(data: any[]) {
     let html = "";
     data.forEach(item => {
         const posts: any[] = item.posts
-        const htmlPosts = posts.map(post => `<li>${post.title}</li>`)
+        const htmlPosts = posts.map(post => `<li>${post.title}</li>`).join('')
         html += `
         <article>
             <h2>${item.name}</h2>
