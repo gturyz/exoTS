@@ -1,5 +1,15 @@
+type Post = {
+    title: string,
+    userId: number
+}
+type User = {
+    id: number,
+    name: string,
+    email: string,
+    posts: Post[]
+}
 
-let data: any[];
+let data: User[];
 
 document.addEventListener("DOMContentLoaded", async () => {
     const reponseUsers = await fetch("https://jsonplaceholder.typicode.com/users")
@@ -24,16 +34,16 @@ document.querySelector("form").addEventListener("submit" , (e : Event) => {
     const inputAuteur = document.querySelector("input[name='auteur']") as HTMLInputElement
     
     const listeFiltreUser = data.filter( user => {
-        const posts: any[] = user.posts
+        const posts: Post[] = user.posts
         return user.name.toLowerCase().includes(inputAuteur.value.toLowerCase()) && posts.find(post => post.title.toLowerCase().includes(inputTitre.value.toLowerCase()))
     })
     render(listeFiltreUser)
 })
 
-function render(data: any[]) {
+function render(data: User[]) {
     let html = "";
     data.forEach(item => {
-        const posts: any[] = item.posts
+        const posts: Post[] = item.posts
         const htmlPosts = posts.map(post => `<li>${post.title}</li>`).join('')
         html += `
         <article>
