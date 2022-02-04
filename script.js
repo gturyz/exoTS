@@ -21,5 +21,21 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(this, void 0, void
     // data.forEach(pays => regions.add(pays.region ))
     // regions.forEach( region => html += `<option>${region}</option>` )
     // document.querySelector("select").innerHTML = html; 
-    // render(data)
+    render(data);
 }));
+function render(data) {
+    let html = "";
+    data.forEach(item => {
+        const posts = item.posts;
+        const htmlPosts = posts.map(post => `<li>${post.title}</li>`);
+        html += `
+        <article>
+            <h2>${item.name}</h2>
+            <p>${item.email}</p>
+            <h3>Titre des articles rédigés :</h3>
+            <ul>${htmlPosts}</ul>
+        </article>
+        `;
+    });
+    document.querySelector("main").innerHTML = html;
+}
