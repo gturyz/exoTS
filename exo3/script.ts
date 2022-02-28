@@ -15,12 +15,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const reponseUsers = await fetch("https://jsonplaceholder.typicode.com/users")
     const reponsePosts = await fetch("https://jsonplaceholder.typicode.com/posts")
 
-    const posts: any[] = await reponsePosts.json()
-    const users: any[] = await reponseUsers.json()
+    const posts: Post[] = await reponsePosts.json()
+    const users: User[] = await reponseUsers.json()
 
     data = users.map(user => ({
-        posts: posts.filter(post => (post.userId === user.id) && post),
-        ...user
+        ...user,
+        posts: posts.filter(post => (post.userId === user.id) && post)
     }))
 
     console.log(data)

@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => __awaiter(this, void 0, void
     const reponsePosts = yield fetch("https://jsonplaceholder.typicode.com/posts");
     const posts = yield reponsePosts.json();
     const users = yield reponseUsers.json();
-    data = users.map(user => (Object.assign({ posts: posts.filter(post => (post.userId === user.id) && post) }, user)));
+    data = users.map(user => (Object.assign(Object.assign({}, user), { posts: posts.filter(post => (post.userId === user.id) && post) })));
     console.log(data);
     render(data);
 }));
